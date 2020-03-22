@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Tank;
 use App\Record;
@@ -67,28 +68,25 @@ class TransferController extends Controller
                 [
                     'opening_volume' =>  $prev_volume_from_tank, 
                     'closing_volume' =>  $prev_volume_from_tank - $volume,
-                    'tank_id' => $from_tank
+                    'tank_id' => $from_tank,
+                    'created_at' => Carbon::now()->toDateString(),
+                    'updated_at' =>  Carbon::now()->toDateString(),
                 ],
-                [
-                    'opening_volume' => $prev_volume_to_tank,
-                    'closing_volume' => $prev_volume_to_tank + $volume,
-                    'tank_id' => $to_tank
-                ]
-                ];
-
-            // $this->record->from_opening_volume = $prev_volume_from_tank;
-            // $this->record->from_closing_volume = $prev_volume_from_tank - $volume;
-            // $this->record->from_tank_id = $from_tank;       
-            
         /**
         * Create new record for this transfer, to take record of previous volume of To tank,
         * and new volume of  To tank. i.e (Tank that you are making transfer to).
         */
-        
-            // $this->record->to_opening_volume = $prev_volume_to_tank;
-            // $this->record->to_closing_volume = $prev_volume_to_tank + $volume;
-            // $this->record->to_tank_id = $to_tank;
+                [
+                    'opening_volume' => $prev_volume_to_tank,
+                    'closing_volume' => $prev_volume_to_tank + $volume,
+                    'tank_id' => $to_tank,
+                    'created_at' => Carbon::now()->toDateString(),
+                    'updated_at' =>  Carbon::now()->toDateString(),
+                ]
+                ];
+
                 $takeRecord = DB::table("records")->insert($myRecord);
+
             if($takeRecord)
             {
         /**
@@ -158,7 +156,34 @@ class TransferController extends Controller
     }
 
     /**
+     * Get daily record of tank volume before the addition or substraction
+     * and after the addition or subtraction.
+     * 
+     * @Addition means tranfering to the underground tank
+     * @Substraction means transfering from the ungerground tank.
+     * 
+     * @opening_volume means Volume record before addition or substraction
+     * @closing_volume means volume record after  addition or substraction
      * 
      */
+
+    public function volumedaily()
+    {
+       if($volumedaily = $this->record->all()) 
+       {
+           
+        return response()->json([
+            'success' => true,
+            'data' => $volumedaily->toArray()
+        ], 200);
+       }else{
+           return response()->json([
+               'success' => false,
+               'message' => 'Something went wrong!'
+           ]);
+       }
+        
+    }
+
       
 }

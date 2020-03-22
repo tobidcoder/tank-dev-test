@@ -37,5 +37,6 @@ Route::middleware('auth:api')->group(function(){
 
         Route::get('/dailyVolume', 'TransferController@dailyVolume')->name('daily.volume');
 
+        Route::get('volumedaily', 'TransferController@volumedaily')->name('volumedaily');
 });
 
