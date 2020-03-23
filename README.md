@@ -1,17 +1,17 @@
 Run:
 git clone https://github.com/tobidcoder/tank-dev-test.git
  
-Then
+Then: 
 cd tank-dev-test
 
-Then
+Then :
 composer install
 
 Then
 
 npm install
 
-Then
+Then:
 Create database testdev
 
 cp .env.example .env 
@@ -25,7 +25,7 @@ php artisan key:generate
 
 php artisan migrate
 
-Then 
+Then:
 
 php artisan db:seed
 
