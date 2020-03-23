@@ -1,3 +1,52 @@
+Run:
+git clone https://github.com/tobidcoder/tank-dev-test.git
+ 
+Then
+cd tank-dev-test
+
+Then
+composer install
+
+Then
+
+npm install
+
+Then
+Create database testdev
+
+cp .env.example .env 
+
+Change database name in .env to testdev
+
+Run
+
+php artisan key:generate
+
+
+php artisan migrate
+
+Then 
+
+php artisan db:seed
+
+
+Then 
+
+php artisan passport:install
+
+Finally
+Run 
+
+php artisan serve
+
+
+Open postman, login with one of the random user generate, email, password is password for all user.
+
+Set headers with Auth token generate.
+
+Happy testing.
+
+
 
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
